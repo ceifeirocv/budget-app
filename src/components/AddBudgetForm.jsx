@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Form } from "react-router-dom";
-import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
+import { Form } from 'react-router-dom';
+import { CurrencyDollarIcon } from '@heroicons/react/24/solid';
 
 function AddBudgetForm() {
   return (
@@ -33,6 +33,7 @@ function AddBudgetForm() {
           <span>Create Budget</span>
           <CurrencyDollarIcon width={20} />
         </button>
+        <input type="hidden" name="_action" value="createBudget" />
       </Form>
     </div>
   );

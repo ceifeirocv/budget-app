@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchData } from '../helpers';
+import { createBudget, fetchData } from '../helpers';
 import Intro from '../components/Intro';
 import AddBudgetForm from '../components/AddBudgetForm';
 
@@ -10,14 +10,31 @@ export function dashboardLoader() {
   return { userName, budgets };
 }
 
+// eslint-disable-next-line consistent-return
 export async function dashboardAction({ request }) {
   const data = await request.formData();
-  const formData = Object.fromEntries(data);
-  try {
-    localStorage.setItem('userName', JSON.stringify(formData.userName));
-    return toast.success(`Welcome ${formData.userName}`);
-  } catch (error) {
-    throw new Error('There was a problem creationg your acount');
+  const { _action, ...values } = Object.fromEntries(data);
+
+  if (_action === 'newUser') {
+    try {
+      localStorage.setItem('userName', JSON.stringify(values.userName));
+      return toast.success(`Welcome ${values.userName}`);
+    } catch (error) {
+      throw new Error('There was a problem creationg your acount');
+    }
+  }
+
+  if (_action === 'createBudget') {
+    try {
+      // create Budget
+      createBudget({
+        name: values.newBudget,
+        amount: values.newBudgetAmount,
+      });
+      return toast.success('Budget Created');
+    } catch (error) {
+      throw new Error('There was a problem creationg your Budget');
+    }
   }
 }
 
@@ -43,7 +60,9 @@ function Dashboard() {
             </div>
           </div>
         </div>
-      ) : <Intro />}
+      ) : (
+        <Intro />
+      )}
     </>
   );
 }
