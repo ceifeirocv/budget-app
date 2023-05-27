@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { useEffect, useRef } from 'react';
 import { useFetcher } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function AddExpenseForm({ budgets }) {
   const fetcher = useFetcher();
@@ -85,5 +85,17 @@ function AddExpenseForm({ budgets }) {
     </div>
   );
 }
+
+AddExpenseForm.propTypes = {
+  budgets: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      createdAt: PropTypes.number.isRequired,
+      amount: PropTypes.number.isRequired,
+      budgetId: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
 
 export default AddExpenseForm;
