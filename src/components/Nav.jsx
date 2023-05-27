@@ -1,10 +1,9 @@
+import { Form, NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { TrashIcon } from '@heroicons/react/24/solid';
 
-// assets
-import { Form, NavLink } from 'react-router-dom';
 import logomark from '../assets/logomark.svg';
 
-// eslint-disable-next-line react/prop-types
 function Nav({ userName }) {
   return (
     <nav>
@@ -34,5 +33,9 @@ function Nav({ userName }) {
     </nav>
   );
 }
+
+Nav.propTypes = {
+  userName: PropTypes.string.isRequired,
+};
 
 export default Nav;
