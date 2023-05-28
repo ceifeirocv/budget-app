@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import ExpenseItem from './ExpenseItem';
 
-function Table({ expenses }) {
+function Table({ expenses, showBudget = true }) {
   return (
     <div>
       <table>
         <thead>
           <tr>
             {
-              ['Name', 'Amount', 'Date', 'Budget', ''].map((i, index) => (
+              ['Name', 'Amount', 'Date', showBudget ? ('Budget') : (''), ''].map((i, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <th key={index}>{i}</th>
               ))
@@ -19,7 +19,7 @@ function Table({ expenses }) {
           {
             expenses.map((expense) => (
               <tr key={expense.id}>
-                <ExpenseItem expense={expense} />
+                <ExpenseItem expense={expense} showBudget={showBudget} />
               </tr>
             ))
           }
@@ -39,6 +39,7 @@ Table.propTypes = {
       budgetId: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  showBudget: PropTypes.bool.isRequired,
 };
 
 export default Table;

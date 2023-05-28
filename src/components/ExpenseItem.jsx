@@ -6,7 +6,7 @@ import { TrashIcon } from '@heroicons/react/24/solid';
 import { formatCurrency, getAllMatchingItems } from '../helpers';
 
 dayjs.extend(utc);
-function ExpenseItem({ expense }) {
+function ExpenseItem({ expense, showBudget = true }) {
   const fetcher = useFetcher();
 
   const budget = getAllMatchingItems({
@@ -20,16 +20,20 @@ function ExpenseItem({ expense }) {
       <td>{expense.name}</td>
       <td>{formatCurrency(expense.amount)}</td>
       <td>{dayjs.utc(expense.createdAt).local().format('DD-MM-YYYY HH:mm')}</td>
-      <td>
-        <Link
-          to={`/budget/${budget.id}`}
-          style={{
-            '--accent': budget.color,
-          }}
-        >
-          {budget.name}
-        </Link>
-      </td>
+      {
+        showBudget && (
+          <td>
+            <Link
+              to={`/budget/${budget.id}`}
+              style={{
+                '--accent': budget.color,
+              }}
+            >
+              {budget.name}
+            </Link>
+          </td>
+        )
+      }
       <td>
         <fetcher.Form method="post">
           <input type="hidden" name="_action" value="deleteExpense" />
@@ -55,6 +59,7 @@ ExpenseItem.propTypes = {
     amount: PropTypes.number.isRequired,
     budgetId: PropTypes.string.isRequired,
   }).isRequired,
+  showBudget: PropTypes.bool.isRequired,
 };
 
 export default ExpenseItem;
