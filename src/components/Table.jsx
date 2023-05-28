@@ -8,7 +8,7 @@ function Table({ expenses }) {
         <thead>
           <tr>
             {
-              ['Name', 'Amount', 'Date'].map((i, index) => (
+              ['Name', 'Amount', 'Date', 'Budget', ''].map((i, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <th key={index}>{i}</th>
               ))

@@ -1,7 +1,20 @@
 // localstorage
 export const fetchData = (key) => JSON.parse(localStorage.getItem(key));
 
-export const deleteItem = ({ key }) => localStorage.removeItem(key);
+export const deleteItem = ({ key, id }) => {
+  if (!id) {
+    return localStorage.removeItem(key);
+  }
+
+  const existingData = fetchData(key);
+  const newData = existingData.filter((item) => item.id !== id);
+  return localStorage.setItem(key, JSON.stringify(newData));
+};
+
+export const getAllMatchingItems = ({ category, key, value }) => {
+  const data = fetchData(category) ?? [];
+  return data.filter((item) => item[key] === value);
+};
 
 export const createBudget = ({ name, amount }) => {
   const existingBudget = fetchData('budgets') ?? [];

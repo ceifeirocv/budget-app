@@ -1,10 +1,30 @@
 import { useLoaderData } from 'react-router-dom';
-import { fetchData } from '../helpers';
+import { toast } from 'react-toastify';
+import { deleteItem, fetchData } from '../helpers';
 import Table from '../components/Table';
 
-export function expensesLoader() {
+export async function expensesLoader() {
   const expenses = fetchData('expenses');
   return { expenses };
+}
+
+// eslint-disable-next-line consistent-return
+export async function expensesAction({ request }) {
+  const data = await request.formData();
+  const { _action, ...values } = Object.fromEntries(data);
+
+  if (_action === 'deleteExpense') {
+    try {
+      // create an expense
+      deleteItem({
+        key: 'expenses',
+        id: values.expenseId,
+      });
+      return toast.success('Expense deleted Added');
+    } catch (error) {
+      throw new Error('There was a problem deleting your Expense');
+    }
+  }
 }
 
 function ExpensesPage() {
