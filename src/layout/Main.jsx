@@ -1,34 +1,33 @@
-import { Outlet, useLoaderData } from "react-router-dom"
+import { Outlet, useLoaderData } from 'react-router-dom';
 
 // assets
-import wave from "../assets/wave.svg"
+import wave from '../assets/wave.svg';
 
 // components
-import Nav from "../components/Nav"
+import Nav from '../components/Nav';
 
 // helpers
-import { fetchData } from "../helpers"
-
+import { fetchData } from '../helpers';
 
 // loader
 export function mainLoader() {
-  const userName = fetchData("userName")
+  const userName = fetchData('userName');
   return {
-    userName
-  }
+    userName,
+  };
 }
 
-const Main = () => {
-  const { userName } = useLoaderData()
+function Main() {
+  const { userName } = useLoaderData();
   return (
     <div className="layout">
-      <Nav userName={userName}/>
+      <Nav userName={userName} />
       <main>
-        <Outlet />  
+        <Outlet />
       </main>
       <img src={wave} alt="" />
     </div>
-  )
+  );
 }
 
-export default Main
+export default Main;
