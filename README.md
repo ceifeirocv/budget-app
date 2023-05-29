@@ -2,7 +2,7 @@
 
 Introducing a budgeting application created during the <a href="https://www.youtube.com/playlist?list=PL4cUxeGkcC9iNnY07bh_UPaRIQZcJfARY">NetNinja tutorial</a>:
 
-Budget Web App is a user-friendly and comprehensive web application designed to help you take control of your personal finances. With its intuitive interface and powerful features, Budget Web App offers budgeting and expense tracking functionalities.
+Budget Web App is a user-friendly web application designed to help you take control of your personal finances. With its intuitive interface and powerful features, Budget Web App offers budgeting and expense tracking functionalities.
 
 Personal budgeting is the secret to financial freedom. Start your journey today. Take Control of Your Money.
 
