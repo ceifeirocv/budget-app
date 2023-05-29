@@ -69,7 +69,7 @@ function BudgetPage() {
         Overview
       </h1>
       <div className="flex-lg">
-        <BudgetItem budget={budget} />
+        <BudgetItem budget={budget} showDelete />
         <AddExpenseForm budgets={[budget]} />
       </div>
       <div>
@@ -77,7 +77,7 @@ function BudgetPage() {
           expenses && expenses.length > 0 && (
             <div className="grid-md">
               <h2>
-                <spam className="accent">{budget.name}</spam>
+                <span className="accent">{budget.name}</span>
                 {' '}
                 Expenses
               </h2>
