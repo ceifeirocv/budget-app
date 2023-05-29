@@ -1,5 +1,26 @@
 # Budget App
 
+<p align="center">
+  <a href="https://github.com/ceifeirocv/budget-app/blob/master/LICENSE" target="_blank">
+    <img src="https://img.shields.io/github/license/ceifeirocv/budget-app?style=flat-square" alt="budget-app license" />
+  </a>
+  <a href="https://github.com/ceifeirocv/budget-app/fork" target="_blank">
+    <img src="https://img.shields.io/github/forks/ceifeirocv/budget-app?style=flat-square" alt="budget-app forks" />
+  </a>
+  <a href="https://github.com/ceifeirocv/budget-app/stargazers" target="_blank">
+    <img src="https://img.shields.io/github/stars/ceifeirocv/budget-app?style=flat-square" alt="budget-app stars" />
+  </a>
+  <a href="https://github.com/ceifeirocv/budget-app/issues" target="_blank">
+    <img src="https://img.shields.io/github/issues/ceifeirocv/budget-app?style=flat-square" alt="budget-app issues" />
+  </a>
+  <a href="https://github.com/ceifeirocv/budget-app/pulls" target="_blank">
+    <img src="https://img.shields.io/github/issues-pr/ceifeirocv/budget-app?style=flat-square" alt="budget-app issues-pr" />
+  </a>
+  <a href="https://github.com/ceifeirocv/budget-app/" target="_blank">
+    <img src="https://img.shields.io/github/languages/count/ceifeirocv/budget-app?style=flat-square" alt="budget-app languages/count" />
+  </a>
+</p>
+
 Introducing a budgeting application created during the <a href="https://www.youtube.com/playlist?list=PL4cUxeGkcC9iNnY07bh_UPaRIQZcJfARY">NetNinja tutorial</a>:
 
 Budget Web App is a user-friendly web application designed to help you take control of your personal finances. With its intuitive interface and powerful features, Budget Web App offers budgeting and expense tracking functionalities.
@@ -19,6 +40,11 @@ Budgets
 Expenses
 - Add expenses
 - Delete Expenses
+
+## Demonstração
+
+https://budget-1twb.onrender.com/
+
 
 ## Aprendizados
 
