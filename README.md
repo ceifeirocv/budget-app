@@ -13,9 +13,12 @@ User:
 
 Budgets
 -Add Budgets
+-Delete Budget
+-View Budget
 
 Expenses
 -Add expenses
+-Delete Expenses
 
 ## Aprendizados
 
