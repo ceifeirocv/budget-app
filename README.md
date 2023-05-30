@@ -21,7 +21,7 @@
   </a>
 </p>
 
-Introducing a budgeting application created during the <a href="https://www.youtube.com/playlist?list=PL4cUxeGkcC9iNnY07bh_UPaRIQZcJfARY">NetNinja tutorial</a>:
+Introducing a budgeting application.
 
 Budget Web App is a user-friendly web application designed to help you take control of your personal finances. With its intuitive interface and powerful features, Budget Web App offers budgeting and expense tracking functionalities.
 
@@ -41,24 +41,30 @@ Expenses
 - Add expenses
 - Delete Expenses
 
-## Demonstração
+## Demo
 
-<a href="https://budget-1twb.onrender.com/" target="_blank">Live Demo in Render</a>
+[Live Demo in Render](https://budget-1twb.onrender.com/)
 
-
-
-## Aprendizados
+## Lessons Learned
 
 I'm currently in the process of learning React Router to enhance my skills in building dynamic and interactive single-page applications.
 
-<a href="https://reactrouter.com/" target="_blank">React Router Documentation</a>
+[React Router Documentation](https://reactrouter.com/)
 
-## Autores
+## Acknowledgements
+ - [NetNinja](https://www.youtube.com/playlist?list=PL4cUxeGkcC9iNnY07bh_UPaRIQZcJfARY)
+
+## Roadmap
+
+- Connect to an API
+- Upgrade to NextJs
+
+## Authors
 
 - [@ceifeirocv](https://www.github.com/ceifeirocv)
 
 
-## Licença
+## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
