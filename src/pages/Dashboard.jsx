@@ -1,7 +1,8 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
 import {
-  createBudget, createExpense, deleteItem, fetchData,
+  createBudget, createExpense, deleteItem, fetchData, oauthSignIn,
 } from '../helpers';
 import Intro from '../components/Intro';
 import AddBudgetForm from '../components/AddBudgetForm';
@@ -10,10 +11,13 @@ import BudgetItem from '../components/BudgetItem';
 import Table from '../components/Table';
 
 export async function dashboardLoader() {
-  const userName = fetchData('userName');
   const budgets = fetchData('budgets');
   const expenses = fetchData('expenses');
-  return { userName, budgets, expenses };
+  const token = fetchData('token');
+  const user = fetchData('user');
+  return {
+    token, budgets, expenses, user,
+  };
 }
 
 // eslint-disable-next-line consistent-return
@@ -23,8 +27,8 @@ export async function dashboardAction({ request }) {
 
   if (_action === 'newUser') {
     try {
-      localStorage.setItem('userName', JSON.stringify(values.userName));
-      return toast.success(`Welcome ${values.userName}`);
+      await oauthSignIn();
+      return null;
     } catch (error) {
       throw new Error('There was a problem creationg your acount');
     }
@@ -72,17 +76,19 @@ export async function dashboardAction({ request }) {
 }
 
 function Dashboard() {
-  const { userName, budgets, expenses } = useLoaderData();
+  const {
+    budgets, expenses, user,
+  } = useLoaderData();
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {userName ? (
+      {user ? (
         <div className="dashboard">
           <h1>
             Welcome back,
             {' '}
-            <span className="accent">{userName}</span>
+            <span className="accent">{ user.name }</span>
           </h1>
           <div className="grid-sm">
             { budgets && budgets.length > 0 ? (

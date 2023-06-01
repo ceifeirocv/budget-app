@@ -61,3 +61,35 @@ export const calculateSpentByBudget = (budjetId) => {
   }, 0);
   return budgetSpent;
 };
+
+export function oauthSignIn() {
+  // Google's OAuth 2.0 endpoint for requesting an access token
+  const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+  // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+  const form = document.createElement('form');
+  form.setAttribute('method', 'GET'); // Send as a GET request.
+  form.setAttribute('action', oauth2Endpoint);
+
+  // Parameters to pass to OAuth 2.0 endpoint.
+  const params = {
+    client_id: '1048568934801-s9b0i2ubpktif27k7g5de50591244irk.apps.googleusercontent.com',
+    redirect_uri: 'http://localhost:5173/auth/google/callback',
+    response_type: 'token',
+    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+    state: 'pass-through value',
+  };
+
+  // Add form parameters as hidden input values.
+  Object.entries(params).forEach(([key, value]) => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'hidden');
+    input.setAttribute('name', key);
+    input.setAttribute('value', value);
+    form.appendChild(input);
+  });
+
+  // Add form to page and submit it to open the OAuth 2.0 endpoint.
+  document.body.appendChild(form);
+  form.submit();
+}

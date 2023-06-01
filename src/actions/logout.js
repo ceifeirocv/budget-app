@@ -6,15 +6,12 @@ import { deleteItem } from '../helpers';
 export async function logoutAction() {
   // delete user
   deleteItem({
-    key: 'userName',
+    key: 'token',
   });
   deleteItem({
-    key: 'budgets',
+    key: 'user',
   });
-  deleteItem({
-    key: 'expenses',
-  });
-  toast.success('Account deleted');
+  toast.success('Good Bye');
 
   // return redirect
   return redirect('/');

@@ -15,6 +15,8 @@ import { logoutAction } from './actions/logout';
 import ExpensesPage, { expensesAction, expensesLoader } from './pages/ExpensesPage';
 import BudgetPage, { budgetAction, budgetLoader } from './pages/BudgetPage';
 import { deleteBudget } from './actions/delete';
+import { loginAction } from './actions/login';
+import GoogleOAuth from './pages/GoogleOAuth';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        index: true,
+        path: '/',
         element: <Dashboard />,
         loader: dashboardLoader,
         action: dashboardAction,
@@ -51,9 +53,21 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: 'login',
+        action: loginAction,
+        errorElement: <Error />,
+      },
+      {
         path: 'logout',
         action: logoutAction,
+        errorElement: <Error />,
       },
+      {
+        path: 'auth/google/callback',
+        element: <GoogleOAuth />,
+        errorElement: <Error />,
+      },
+
     ],
   },
 ]);

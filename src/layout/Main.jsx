@@ -11,17 +11,17 @@ import { fetchData } from '../helpers';
 
 // loader
 export function mainLoader() {
-  const userName = fetchData('userName');
+  const token = fetchData('token');
   return {
-    userName,
+    token,
   };
 }
 
 function Main() {
-  const { userName } = useLoaderData();
+  const { token } = useLoaderData();
   return (
     <div className="layout">
-      <Nav userName={userName} />
+      <Nav token={token} />
       <main>
         <Outlet />
       </main>

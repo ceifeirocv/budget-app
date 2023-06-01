@@ -1,10 +1,10 @@
 import { Form, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { TrashIcon } from '@heroicons/react/24/solid';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
 
 import logomark from '../assets/logomark.svg';
 
-function Nav({ userName }) {
+function Nav({ token }) {
   return (
     <nav>
       <NavLink to="/" aria-label="go to home">
@@ -12,7 +12,7 @@ function Nav({ userName }) {
         <span>HomeBudget</span>
       </NavLink>
       {
-        userName && (
+        token && (
           <Form
             method="post"
             action="/logout"
@@ -24,8 +24,8 @@ function Nav({ userName }) {
             }}
           >
             <button type="submit" className="btn btn--warning">
-              <span>Delete User</span>
-              <TrashIcon width={20} />
+              <span>Log Out</span>
+              <ArrowRightOnRectangleIcon width={20} />
             </button>
           </Form>
         )
@@ -35,7 +35,7 @@ function Nav({ userName }) {
 }
 
 Nav.propTypes = {
-  userName: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 export default Nav;
