@@ -30,7 +30,7 @@ export async function dashboardAction({ request }) {
       await oauthSignIn();
       return null;
     } catch (error) {
-      throw new Error('There was a problem creationg your acount');
+      throw new Error('There was a problem creating your acount');
     }
   }
 
