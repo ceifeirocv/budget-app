@@ -13,10 +13,9 @@ import Table from '../components/Table';
 export async function dashboardLoader() {
   const budgets = fetchData('budgets');
   const expenses = fetchData('expenses');
-  const token = fetchData('token');
   const user = fetchData('user');
   return {
-    token, budgets, expenses, user,
+    budgets, expenses, user,
   };
 }
 
