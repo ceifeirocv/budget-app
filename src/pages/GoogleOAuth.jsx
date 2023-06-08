@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useLocation, useSubmit } from 'react-router-dom';
 
 function GoogleOAuth() {
@@ -6,10 +7,13 @@ function GoogleOAuth() {
   const accessToken = urlParams.get('access_token');
 
   const submit = useSubmit();
-  submit({ accessToken }, {
-    method: 'post',
-    action: 'login',
-  });
+
+  useEffect(() => {
+    submit({ accessToken }, {
+      method: 'post',
+      action: '/login',
+    });
+  }, [submit]);
   return (
     <div />
   );
