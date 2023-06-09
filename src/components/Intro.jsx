@@ -21,7 +21,7 @@ function Intro() {
         <fetcher.Form method="post">
           <input type="hidden" name="_action" value="newUser" />
           <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
-            <span>Create Account</span>
+            <span>Create Account / Log In</span>
             <UserPlusIcon width={20} />
           </button>
         </fetcher.Form>

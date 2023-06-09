@@ -2,7 +2,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import {
-  createBudget, createExpense, deleteItem, fetchData, oauthSignIn,
+  createBudget, createExpense, deleteItem, fetchData, getBudgets, oauthSignIn,
 } from '../helpers';
 import Intro from '../components/Intro';
 import AddBudgetForm from '../components/AddBudgetForm';
@@ -11,11 +11,13 @@ import BudgetItem from '../components/BudgetItem';
 import Table from '../components/Table';
 
 export async function dashboardLoader() {
-  const budgets = fetchData('budgets');
-  const expenses = fetchData('expenses');
   const user = fetchData('user');
+  const budgets = await getBudgets();
+  const expenses = fetchData('expenses');
   return {
-    budgets, expenses, user,
+    budgets,
+    expenses,
+    user,
   };
 }
 
@@ -36,7 +38,7 @@ export async function dashboardAction({ request }) {
   if (_action === 'createBudget') {
     try {
       // create Budget
-      createBudget({
+      await createBudget({
         name: values.newBudget,
         amount: values.newBudgetAmount,
       });
@@ -78,7 +80,6 @@ function Dashboard() {
   const {
     budgets, expenses, user,
   } = useLoaderData();
-
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
