@@ -84,13 +84,28 @@ export function oauthSignIn() {
 }
 
 // Budgets
+export const getBudgets = async () => {
+  const token = fetchData('token');
+  if (!token) {
+    return null;
+  }
+  try {
+    const response = await api.get('/budget', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.budgets;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const createBudget = async ({ name, amount }) => {
   const token = fetchData('token');
   const existingBudget = await getBudgets() ?? [];
   const newItem = {
-    id: crypto.randomUUID(),
     name,
-    createdAt: Date.now(),
     amount: +amount,
     color: `${existingBudget.length * 34} 65% 50%`,
   };
@@ -106,23 +121,6 @@ export const createBudget = async ({ name, amount }) => {
         },
       },
     );
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-export const getBudgets = async () => {
-  const token = fetchData('token');
-  if (!token) {
-    return null;
-  }
-  try {
-    const response = await api.get('/budget', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data.budgets;
   } catch (error) {
     throw new Error(error);
   }
