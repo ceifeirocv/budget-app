@@ -101,6 +101,7 @@ function Dashboard() {
                 <div className="budgets">
                   {
                     budgets.map((budget) => (
+                      // <div>{budget.id}</div>
                       <BudgetItem key={budget.id} budget={budget} />
                     ))
                   }

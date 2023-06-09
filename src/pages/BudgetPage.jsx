@@ -1,16 +1,16 @@
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { createExpense, deleteItem, getAllMatchingItems } from '../helpers';
+import {
+  createExpense, deleteItem, getAllMatchingItems, getBudgetById,
+} from '../helpers';
 import BudgetItem from '../components/BudgetItem';
 import AddExpenseForm from '../components/AddExpenseForm';
 import Table from '../components/Table';
 
 export async function budgetLoader({ params }) {
-  const budget = await getAllMatchingItems({
-    category: 'budgets',
-    key: 'id',
-    value: params.id,
-  })[0];
+  const budget = await getBudgetById({
+    id: params.id,
+  });
 
   if (!budget) {
     throw new Error('The budget you are trying to find does not exist');

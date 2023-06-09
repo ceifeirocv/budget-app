@@ -84,23 +84,6 @@ export function oauthSignIn() {
 }
 
 // Budgets
-export const getBudgets = async () => {
-  const token = fetchData('token');
-  if (!token) {
-    return null;
-  }
-  try {
-    const response = await api.get('/budget', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data.budgets;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
 export const createBudget = async ({ name, amount }) => {
   const token = fetchData('token');
   const existingBudget = await getBudgets() ?? [];
@@ -123,6 +106,40 @@ export const createBudget = async ({ name, amount }) => {
         },
       },
     );
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getBudgets = async () => {
+  const token = fetchData('token');
+  if (!token) {
+    return null;
+  }
+  try {
+    const response = await api.get('/budget', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.budgets;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getBudgetById = async ({ id }) => {
+  const token = fetchData('token');
+  if (!token) {
+    return null;
+  }
+  try {
+    const response = await api.get(`/budget/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.budget;
   } catch (error) {
     throw new Error(error);
   }
