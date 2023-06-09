@@ -49,7 +49,11 @@ Expenses
 
 I'm currently in the process of learning React Router to enhance my skills in building dynamic and interactive single-page applications.
 
-[React Router Documentation](https://reactrouter.com/)
+## Tech Stack
+
+**Client:** 
+-[React](https://react.dev/), 
+-[React Router Documentation](https://reactrouter.com/), 
 
 ## Acknowledgements
  - [NetNinja](https://www.youtube.com/playlist?list=PL4cUxeGkcC9iNnY07bh_UPaRIQZcJfARY)
