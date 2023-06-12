@@ -49,7 +49,7 @@ function BudgetItem({ budget, showDelete = false }) {
               }}
             >
               <button type="submit" className="btn">
-                <span>Delete User</span>
+                <span>Delete Budget</span>
                 <TrashIcon width={20} />
               </button>
             </Form>
