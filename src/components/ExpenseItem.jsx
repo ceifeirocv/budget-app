@@ -1,19 +1,12 @@
-import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { Link, useFetcher } from 'react-router-dom';
 import { TrashIcon } from '@heroicons/react/24/solid';
-import { formatCurrency, getAllMatchingItems } from '../helpers';
+import { formatCurrency } from '../helpers';
 
 dayjs.extend(utc);
 function ExpenseItem({ expense, showBudget = true }) {
   const fetcher = useFetcher();
-
-  const budget = getAllMatchingItems({
-    category: 'budgets',
-    key: 'id',
-    value: expense.budgetId,
-  })[0];
 
   return (
     <>
@@ -24,12 +17,12 @@ function ExpenseItem({ expense, showBudget = true }) {
         showBudget && (
           <td>
             <Link
-              to={`/budget/${budget.id}`}
+              to={`/budget/${expense.budgetId}`}
               style={{
-                '--accent': budget.color,
+                '--accent': expense.Budget.color,
               }}
             >
-              {budget.name}
+              {expense.Budget.name}
             </Link>
           </td>
         )
@@ -50,16 +43,5 @@ function ExpenseItem({ expense, showBudget = true }) {
     </>
   );
 }
-
-ExpenseItem.propTypes = {
-  expense: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    createdAt: PropTypes.number.isRequired,
-    amount: PropTypes.number.isRequired,
-    budgetId: PropTypes.string.isRequired,
-  }).isRequired,
-  showBudget: PropTypes.bool.isRequired,
-};
 
 export default ExpenseItem;

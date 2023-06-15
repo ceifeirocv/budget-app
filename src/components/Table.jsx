@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import ExpenseItem from './ExpenseItem';
 
 function Table({ expenses, showBudget = true }) {
@@ -28,18 +27,5 @@ function Table({ expenses, showBudget = true }) {
     </div>
   );
 }
-
-Table.propTypes = {
-  expenses: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      createdAt: PropTypes.number.isRequired,
-      amount: PropTypes.number.isRequired,
-      budgetId: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  showBudget: PropTypes.bool.isRequired,
-};
 
 export default Table;

@@ -2,7 +2,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import {
-  createBudget, createExpense, deleteItem, fetchData, getBudgets, oauthSignIn,
+  createBudget, createExpense, deleteExpenseById, fetchData, getBudgets, getExpenses, oauthSignIn,
 } from '../helpers';
 import Intro from '../components/Intro';
 import AddBudgetForm from '../components/AddBudgetForm';
@@ -13,7 +13,7 @@ import Table from '../components/Table';
 export async function dashboardLoader() {
   const user = fetchData('user');
   const budgets = await getBudgets();
-  const expenses = fetchData('expenses');
+  const expenses = await getExpenses();
   return {
     budgets,
     expenses,
@@ -51,7 +51,7 @@ export async function dashboardAction({ request }) {
   if (_action === 'createExpense') {
     try {
       // create an expense
-      createExpense({
+      await createExpense({
         name: values.newExpense,
         amount: values.newExpenseAmount,
         budgetId: values.newExpenseBudget,
@@ -65,11 +65,10 @@ export async function dashboardAction({ request }) {
   if (_action === 'deleteExpense') {
     try {
       // create an expense
-      deleteItem({
-        key: 'expenses',
+      deleteExpenseById({
         id: values.expenseId,
       });
-      return toast.success('Expense deleted Added');
+      return toast.success('Expense deleted');
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');
     }
@@ -102,7 +101,7 @@ function Dashboard() {
                   {
                     budgets.map((budget) => (
                       // <div>{budget.id}</div>
-                      <BudgetItem key={budget.id} budget={budget} />
+                      <BudgetItem key={budget.id} budget={budget} expenses={expenses} />
                     ))
                   }
                 </div>
@@ -111,9 +110,10 @@ function Dashboard() {
                     expenses && expenses.length > 0 && (
                       <div className="grid-md">
                         <h2>Recente Expenses</h2>
-                        <Table expenses={
+                        <Table
+                          expenses={
                             expenses
-                              .sort((a, b) => b.createdAt - a.createdAt)
+                              .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
                               .slice(0, 8)
                           }
                         />

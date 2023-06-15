@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useFetcher } from 'react-router-dom';
 import { CurrencyDollarIcon } from '@heroicons/react/24/solid';
 import { useEffect, useRef } from 'react';

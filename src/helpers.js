@@ -18,19 +18,6 @@ export const getAllMatchingItems = ({ category, key, value }) => {
   return data.filter((item) => item[key] === value);
 };
 
-export const createExpense = ({ name, amount, budgetId }) => {
-  const existingExpense = fetchData('expenses') ?? [];
-
-  const newItem = {
-    id: crypto.randomUUID(),
-    name,
-    createdAt: Date.now(),
-    amount: +amount,
-    budgetId,
-  };
-  return localStorage.setItem('expenses', JSON.stringify([...existingExpense, newItem]));
-};
-
 export const formatCurrency = (amount) => amount.toLocaleString(undefined, {
   style: 'currency',
   currency: 'USD',
@@ -40,16 +27,6 @@ export const formatPercentage = (amount) => amount.toLocaleString(undefined, {
   style: 'percent',
   minimumFractionDigits: 0,
 });
-
-export const calculateSpentByBudget = (budjetId) => {
-  const expenses = fetchData('expenses') ?? [];
-  const budgetSpent = expenses.reduce((acc, expense) => {
-    if (expense.budgetId !== budjetId) return acc;
-
-    return acc + expense.amount;
-  }, 0);
-  return budgetSpent;
-};
 
 export function oauthSignIn() {
   // Google's OAuth 2.0 endpoint for requesting an access token
@@ -141,4 +118,88 @@ export const getBudgetById = async ({ id }) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const deleteBudgetById = async ({ id }) => {
+  const token = fetchData('token');
+  if (!token) {
+    return null;
+  }
+  try {
+    await api.delete(`/budget/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return null;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getExpenses = async () => {
+  const token = fetchData('token');
+  if (!token) {
+    return null;
+  }
+  try {
+    const response = await api.get('/expense', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.expenses;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const createExpense = async ({ name, amount, budgetId }) => {
+  const token = fetchData('token');
+  const newItem = {
+    name,
+    amount: +amount,
+    budgetId,
+  };
+  try {
+    await api.post(
+      '/expense',
+      {
+        ...newItem,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteExpenseById = async ({ id }) => {
+  const token = fetchData('token');
+  if (!token) {
+    return null;
+  }
+  try {
+    await api.delete(`/expense/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return null;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const calculateSpentByBudget = (budgetId, expenses) => {
+  const budgetSpent = expenses.reduce((acc, expense) => {
+    if (expense.budgetId !== budgetId) return acc;
+
+    return acc + expense.amount;
+  }, 0);
+  return budgetSpent;
 };

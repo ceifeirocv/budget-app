@@ -1,25 +1,11 @@
 import { toast } from 'react-toastify';
 import { redirect } from 'react-router-dom';
-import { deleteItem, getAllMatchingItems } from '../helpers';
+import { deleteBudgetById } from '../helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export async function deleteBudget({ params }) {
   try {
-    const associatedExpenses = getAllMatchingItems({
-      category: 'expenses',
-      key: 'budgetId',
-      value: params.id,
-    });
-
-    associatedExpenses.forEach((expense) => {
-      deleteItem({
-        key: 'expenses',
-        id: expense.id,
-      });
-    });
-
-    deleteItem({
-      key: 'budgets',
+    await deleteBudgetById({
       id: params.id,
     });
 

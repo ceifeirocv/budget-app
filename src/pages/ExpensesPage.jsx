@@ -1,10 +1,10 @@
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { deleteItem, fetchData } from '../helpers';
+import { deleteExpenseById, getExpenses } from '../helpers';
 import Table from '../components/Table';
 
 export async function expensesLoader() {
-  const expenses = fetchData('expenses');
+  const expenses = await getExpenses();
   return { expenses };
 }
 
@@ -16,11 +16,10 @@ export async function expensesAction({ request }) {
   if (_action === 'deleteExpense') {
     try {
       // create an expense
-      deleteItem({
-        key: 'expenses',
+      await deleteExpenseById({
         id: values.expenseId,
       });
-      return toast.success('Expense deleted Added');
+      return toast.success('Expense deleted');
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');
     }
@@ -37,8 +36,6 @@ function ExpensesPage() {
         expenses && expenses.length > 0 ? (
           <div className="grid-md">
             <h2>
-              Recente Expenses
-              {' '}
               <small>
                 (
                 {expenses.length}

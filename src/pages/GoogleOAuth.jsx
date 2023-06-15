@@ -13,7 +13,7 @@ function GoogleOAuth() {
       method: 'post',
       action: '/login',
     });
-  }, [submit]);
+  }, []);
   return (
     <div />
   );

@@ -1,7 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
-  createExpense, deleteItem, getAllMatchingItems, getBudgetById,
+  createExpense, deleteExpenseById, getBudgetById, getExpenses,
 } from '../helpers';
 import BudgetItem from '../components/BudgetItem';
 import AddExpenseForm from '../components/AddExpenseForm';
@@ -16,11 +16,8 @@ export async function budgetLoader({ params }) {
     throw new Error('The budget you are trying to find does not exist');
   }
 
-  const expenses = await getAllMatchingItems({
-    category: 'expenses',
-    key: 'budgetId',
-    value: params.id,
-  });
+  const allExpenses = await getExpenses();
+  const expenses = allExpenses.filter((item) => item.budgetId === params.id);
 
   return { budget, expenses };
 }
@@ -33,7 +30,7 @@ export async function budgetAction({ request }) {
   if (_action === 'createExpense') {
     try {
       // create an expense
-      createExpense({
+      await createExpense({
         name: values.newExpense,
         amount: values.newExpenseAmount,
         budgetId: values.newExpenseBudget,
@@ -47,11 +44,10 @@ export async function budgetAction({ request }) {
   if (_action === 'deleteExpense') {
     try {
       // create an expense
-      deleteItem({
-        key: 'expenses',
+      deleteExpenseById({
         id: values.expenseId,
       });
-      return toast.success('Expense deleted Added');
+      return toast.success('Expense deleted');
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');
     }
@@ -69,7 +65,7 @@ function BudgetPage() {
         Overview
       </h1>
       <div className="flex-lg">
-        <BudgetItem budget={budget} showDelete />
+        <BudgetItem budget={budget} expenses={expenses} showDelete />
         <AddExpenseForm budgets={[budget]} />
       </div>
       <div>

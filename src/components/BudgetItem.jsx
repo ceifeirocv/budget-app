@@ -1,14 +1,13 @@
-import PropTypes from 'prop-types';
 import { Form, Link } from 'react-router-dom';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { TrashIcon } from '@heroicons/react/24/solid';
 import { calculateSpentByBudget, formatCurrency, formatPercentage } from '../helpers';
 
-function BudgetItem({ budget, showDelete = false }) {
+function BudgetItem({ budget, expenses, showDelete = false }) {
   const {
     id, name, amount, color,
   } = budget;
-  const spent = calculateSpentByBudget(id);
+  const spent = calculateSpentByBudget(id, expenses);
 
   return (
     <div className="budget" style={{ '--accent': color }}>
@@ -65,15 +64,4 @@ function BudgetItem({ budget, showDelete = false }) {
   );
 }
 
-BudgetItem.propTypes = {
-  budget: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    createdAt: PropTypes.number.isRequired,
-    amount: PropTypes.number.isRequired,
-    budgetId: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-  }).isRequired,
-  showDelete: PropTypes.bool.isRequired,
-};
 export default BudgetItem;

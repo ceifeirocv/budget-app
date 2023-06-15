@@ -1,5 +1,4 @@
 import { Form, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
 
 import logomark from '../assets/logomark.svg';
@@ -33,9 +32,5 @@ function Nav({ token }) {
     </nav>
   );
 }
-
-Nav.propTypes = {
-  token: PropTypes.string.isRequired,
-};
 
 export default Nav;
