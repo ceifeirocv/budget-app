@@ -15,7 +15,7 @@ function GoogleOAuth() {
     });
   }, []);
   return (
-    <div />
+    <div>Loading</div>
   );
 }
 
