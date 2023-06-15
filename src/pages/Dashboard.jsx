@@ -1,5 +1,6 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useFetch } from '../lib/api';
 
 import {
   createBudget, createExpense, deleteExpenseById, fetchData, getBudgets, getExpenses, oauthSignIn,
@@ -77,6 +78,9 @@ export async function dashboardAction({ request }) {
 }
 
 function Dashboard() {
+  const { data, error } = useFetch('/budget');
+  console.log(data, error);
+  if (error) throw error;
   const {
     budgets, expenses, user,
   } = useLoaderData();
