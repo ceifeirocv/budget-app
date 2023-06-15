@@ -14,6 +14,7 @@ export async function dashboardLoader() {
   const user = fetchData('user');
   const budgets = await getBudgets();
   const expenses = await getExpenses();
+
   return {
     budgets,
     expenses,
