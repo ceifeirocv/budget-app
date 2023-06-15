@@ -40,7 +40,7 @@ export function oauthSignIn() {
   // Parameters to pass to OAuth 2.0 endpoint.
   const params = {
     client_id: '1048568934801-s9b0i2ubpktif27k7g5de50591244irk.apps.googleusercontent.com',
-    redirect_uri: 'https://budget-1twb.onrender.com/auth/google/callback',
+    redirect_uri: 'http://localhost:5173/auth/google/callback',
     response_type: 'token',
     scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
     state: 'pass-through value',
