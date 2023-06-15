@@ -62,13 +62,13 @@ const router = createBrowserRouter([
         action: logoutAction,
         errorElement: <Error />,
       },
+      {
+        path: 'auth/google/callback',
+        element: <GoogleOAuth />,
+        errorElement: <Error />,
+      },
 
     ],
-  },
-  {
-    path: '/auth/google/callback',
-    element: <GoogleOAuth />,
-    errorElement: <Error />,
   },
 ]);
 
