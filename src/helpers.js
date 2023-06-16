@@ -203,3 +203,21 @@ export const calculateSpentByBudget = (budgetId, expenses) => {
   }, 0);
   return budgetSpent;
 };
+
+export const fetcher = async (url, method, data) => {
+  const token = fetchData('token');
+  console.log('FETCHER', url, method, data);
+  try {
+    const response = await api({
+      method,
+      url,
+      data,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

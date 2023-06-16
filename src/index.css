@@ -602,3 +602,14 @@ table a {
 .Toastify__toast-body {
   font-size: var(--fs-300);
 }
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner div {
+  width: 100px;
+  height: 100px;
+}

@@ -1,13 +1,23 @@
 import { Form, Link } from 'react-router-dom';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { TrashIcon } from '@heroicons/react/24/solid';
-import { calculateSpentByBudget, formatCurrency, formatPercentage } from '../helpers';
+import useSWR from 'swr';
+import {
+  calculateSpentByBudget, fetcher, formatCurrency, formatPercentage,
+} from '../helpers';
 
-function BudgetItem({ budget, expenses, showDelete = false }) {
+function BudgetItem({ budget, showDelete = false }) {
+  const { data, error, isLoading } = useSWR('/expense', fetcher);
+  if (error) throw error;
+
   const {
     id, name, amount, color,
   } = budget;
-  const spent = calculateSpentByBudget(id, expenses);
+  let spent = 0;
+
+  if (!isLoading) {
+    spent = calculateSpentByBudget(id, data.expenses);
+  }
 
   return (
     <div className="budget" style={{ '--accent': color }}>

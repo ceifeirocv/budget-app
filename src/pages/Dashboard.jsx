@@ -1,24 +1,26 @@
-import { Link, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useFetch } from '../lib/api';
 
 import {
-  createBudget, createExpense, deleteExpenseById, fetchData, getBudgets, getExpenses, oauthSignIn,
+  createBudget,
+  createExpense,
+  deleteExpenseById,
+  fetchData,
+  // getBudgets,
+  // getExpenses,
+  oauthSignIn,
 } from '../helpers';
 import Intro from '../components/Intro';
-import AddBudgetForm from '../components/AddBudgetForm';
-import AddExpenseForm from '../components/AddExpenseForm';
-import BudgetItem from '../components/BudgetItem';
-import Table from '../components/Table';
+import Grid from '../components/Grid';
 
 export async function dashboardLoader() {
   const user = fetchData('user');
-  const budgets = await getBudgets();
-  const expenses = await getExpenses();
+  // const budgets = await getBudgets();
+  // const expenses = await getExpenses();
 
   return {
-    budgets,
-    expenses,
+    // budgets,
+    // expenses,
     user,
   };
 }
@@ -78,12 +80,11 @@ export async function dashboardAction({ request }) {
 }
 
 function Dashboard() {
-  const { data, error } = useFetch('/budget');
-  console.log(data, error);
-  if (error) throw error;
   const {
-    budgets, expenses, user,
+    // budgets, expenses,
+    user,
   } = useLoaderData();
+
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
@@ -94,56 +95,7 @@ function Dashboard() {
             {' '}
             <span className="accent">{ user.name }</span>
           </h1>
-          <div className="grid-sm">
-            { budgets && budgets.length > 0 ? (
-              <div className="grid-lg">
-                <div className="flex-lg">
-                  <AddBudgetForm />
-                  <AddExpenseForm budgets={budgets} />
-                </div>
-                <h2>Existing Budgets</h2>
-                <div className="budgets">
-                  {
-                    budgets.map((budget) => (
-                      // <div>{budget.id}</div>
-                      <BudgetItem key={budget.id} budget={budget} expenses={expenses} />
-                    ))
-                  }
-                </div>
-                <div>
-                  {
-                    expenses && expenses.length > 0 && (
-                      <div className="grid-md">
-                        <h2>Recente Expenses</h2>
-                        <Table
-                          expenses={
-                            expenses
-                              .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-                              .slice(0, 8)
-                          }
-                        />
-                        {
-                          expenses.length > 8 && (
-                            <Link to="expenses" className="btn btn--dark">
-                              View all expenses
-                            </Link>
-                          )
-                        }
-                      </div>
-                    )
-                  }
-                </div>
-              </div>
-            ) : (
-              <div>
-                <div className="grid-sm">
-                  <p>Personal budgeting is the secret to financial freedom</p>
-                  <p>Create a budget to get started</p>
-                  <AddBudgetForm />
-                </div>
-              </div>
-            )}
-          </div>
+          <Grid />
         </div>
       ) : (
         <Intro />
