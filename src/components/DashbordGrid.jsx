@@ -19,7 +19,7 @@ function Grid() {
     );
   }
 
-  if (!data) {
+  if (!data || data.budgets.length <= 0) {
     return (
       <div>
         <div className="grid-sm">
