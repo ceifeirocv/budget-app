@@ -17,7 +17,7 @@ function Nav({ token }) {
             action="/logout"
             onSubmit={(event) => {
               // eslint-disable-next-line no-restricted-globals, no-alert
-              if (!confirm('Delete user and all data?')) {
+              if (!confirm('Do you want to log out?')) {
                 event.preventDefault();
               }
             }}
