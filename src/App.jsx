@@ -12,7 +12,7 @@ import Main, { mainLoader } from './layout/Main';
 import Error from './pages/Error';
 import Dashboard, { dashboardAction, dashboardLoader } from './pages/Dashboard';
 import { logoutAction } from './actions/logout';
-import ExpensesPage, { expensesAction, expensesLoader } from './pages/ExpensesPage';
+import ExpensesPage, { expensesAction } from './pages/ExpensesPage';
 import BudgetPage, { budgetAction, budgetLoader } from './pages/BudgetPage';
 import { deleteBudget } from './actions/delete';
 import { loginAction } from './actions/login';
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: 'expenses',
         element: <ExpensesPage />,
-        loader: expensesLoader,
+        // loader: expensesLoader,
         action: expensesAction,
         errorElement: <Error />,
       },

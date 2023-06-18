@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { mutate } from 'swr';
 
 import {
   createBudget,
@@ -46,6 +47,7 @@ export async function dashboardAction({ request }) {
         name: values.newBudget,
         amount: values.newBudgetAmount,
       });
+      mutate('/budget');
       return toast.success('Budget Created');
     } catch (error) {
       throw new Error('There was a problem creationg your Budget');
@@ -60,6 +62,7 @@ export async function dashboardAction({ request }) {
         amount: values.newExpenseAmount,
         budgetId: values.newExpenseBudget,
       });
+      mutate('/expense');
       return toast.success(`Expense ${values.newExpense} Added`);
     } catch (error) {
       throw new Error('There was a problem adding your Expense');
@@ -72,6 +75,7 @@ export async function dashboardAction({ request }) {
       deleteExpenseById({
         id: values.expenseId,
       });
+      mutate('/expense');
       return toast.success('Expense deleted');
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');

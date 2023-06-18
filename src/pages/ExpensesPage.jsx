@@ -1,12 +1,13 @@
-import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { deleteExpenseById, getExpenses } from '../helpers';
+import useSWR, { mutate } from 'swr';
+import { deleteExpenseById, fetcher } from '../helpers';
 import Table from '../components/Table';
+import Spinner from '../components/Spinner';
 
-export async function expensesLoader() {
-  const expenses = await getExpenses();
-  return { expenses };
-}
+// export async function expensesLoader() {
+//   const expenses = await getExpenses();
+//   return { expenses };
+// }
 
 // eslint-disable-next-line consistent-return
 export async function expensesAction({ request }) {
@@ -19,6 +20,7 @@ export async function expensesAction({ request }) {
       await deleteExpenseById({
         id: values.expenseId,
       });
+      mutate('/expense');
       return toast.success('Expense deleted');
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');
@@ -27,23 +29,33 @@ export async function expensesAction({ request }) {
 }
 
 function ExpensesPage() {
-  const { expenses } = useLoaderData();
+  // const { expenses } = useLoaderData();
+  const { data, error, isLoading } = useSWR('/expense', fetcher);
+  if (error) throw error;
+
+  if (isLoading) {
+    return (
+      <div className="grid-lg">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="grid-lg">
       <h1>All Expenses</h1>
       {
-        expenses && expenses.length > 0 ? (
+        data.expenses && data.expenses.length > 0 ? (
           <div className="grid-md">
             <h2>
               <small>
                 (
-                {expenses.length}
+                {data.expenses.length}
                 {' '}
                 total)
               </small>
             </h2>
-            <Table expenses={expenses} />
+            <Table expenses={data.expenses} />
           </div>
         ) : (
           <p>No expenses to show</p>

@@ -87,7 +87,7 @@ export const createBudget = async ({ name, amount }) => {
     color: `${existingBudget.length * 34} 65% 50%`,
   };
   try {
-    await api.post(
+    const response = await api.post(
       '/budget',
       {
         ...newItem,
@@ -98,6 +98,7 @@ export const createBudget = async ({ name, amount }) => {
         },
       },
     );
+    return response.data;
   } catch (error) {
     throw new Error(error);
   }
@@ -206,7 +207,6 @@ export const calculateSpentByBudget = (budgetId, expenses) => {
 
 export const fetcher = async (url, method, data) => {
   const token = fetchData('token');
-  console.log('FETCHER', url, method, data);
   try {
     const response = await api({
       method,

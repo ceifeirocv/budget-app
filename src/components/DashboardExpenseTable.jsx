@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import Table from './Table';
 import { fetcher } from '../helpers';
+import Spinner from './Spinner';
 
 function DashboardExpenseTable() {
-  const { data, error } = useSWR('/expense', fetcher);
+  const { data, error, isLoading } = useSWR('/expense', fetcher);
   if (error) throw error;
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div>
