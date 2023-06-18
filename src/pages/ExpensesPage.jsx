@@ -16,12 +16,18 @@ export async function expensesAction({ request }) {
 
   if (_action === 'deleteExpense') {
     try {
-      // create an expense
-      await deleteExpenseById({
-        id: values.expenseId,
-      });
+      await toast.promise(
+        deleteExpenseById({
+          id: values.expenseId,
+        }),
+        {
+          pending: 'Deleting Expense',
+          success: 'Expense Delete',
+          error: 'There was a problem deleting your Expense',
+        },
+      );
       mutate('/expense');
-      return toast.success('Expense deleted');
+      return null;
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');
     }

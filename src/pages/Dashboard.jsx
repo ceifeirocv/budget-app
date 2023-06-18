@@ -43,12 +43,20 @@ export async function dashboardAction({ request }) {
   if (_action === 'createBudget') {
     try {
       // create Budget
-      await createBudget({
-        name: values.newBudget,
-        amount: values.newBudgetAmount,
-      });
+      await toast.promise(
+        createBudget({
+          name: values.newBudget,
+          amount: values.newBudgetAmount,
+        }),
+        {
+          pending: 'Creating Budget',
+          success: 'Budget Created',
+          error: 'There was a problem creationg your Budget',
+        },
+      );
+
       mutate('/budget');
-      return toast.success('Budget Created');
+      return null;
     } catch (error) {
       throw new Error('There was a problem creationg your Budget');
     }
@@ -57,13 +65,20 @@ export async function dashboardAction({ request }) {
   if (_action === 'createExpense') {
     try {
       // create an expense
-      await createExpense({
-        name: values.newExpense,
-        amount: values.newExpenseAmount,
-        budgetId: values.newExpenseBudget,
-      });
+      await toast.promise(
+        createExpense({
+          name: values.newExpense,
+          amount: values.newExpenseAmount,
+          budgetId: values.newExpenseBudget,
+        }),
+        {
+          pending: 'Creating Expense',
+          success: 'Expense Created',
+          error: 'There was a problem creating your Expense',
+        },
+      );
       mutate('/expense');
-      return toast.success(`Expense ${values.newExpense} Added`);
+      return null;
     } catch (error) {
       throw new Error('There was a problem adding your Expense');
     }
@@ -72,11 +87,19 @@ export async function dashboardAction({ request }) {
   if (_action === 'deleteExpense') {
     try {
       // create an expense
-      deleteExpenseById({
-        id: values.expenseId,
-      });
+
+      await toast.promise(
+        deleteExpenseById({
+          id: values.expenseId,
+        }),
+        {
+          pending: 'Deleting Expense',
+          success: 'Expense Delete',
+          error: 'There was a problem deleting your Expense',
+        },
+      );
       mutate('/expense');
-      return toast.success('Expense deleted');
+      return null;
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');
     }

@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { mutate } from 'swr';
 import {
   createExpense, deleteExpenseById, getBudgetById, getExpenses,
 } from '../helpers';
@@ -30,12 +31,20 @@ export async function budgetAction({ request }) {
   if (_action === 'createExpense') {
     try {
       // create an expense
-      await createExpense({
-        name: values.newExpense,
-        amount: values.newExpenseAmount,
-        budgetId: values.newExpenseBudget,
-      });
-      return toast.success(`Expense ${values.newExpense} Added`);
+      await toast.promise(
+        createExpense({
+          name: values.newExpense,
+          amount: values.newExpenseAmount,
+          budgetId: values.newExpenseBudget,
+        }),
+        {
+          pending: 'Creating Expense',
+          success: 'Expense Created',
+          error: 'There was a problem creating your Expense',
+        },
+      );
+      mutate('/expense');
+      return null;
     } catch (error) {
       throw new Error('There was a problem adding your Expense');
     }
@@ -44,10 +53,19 @@ export async function budgetAction({ request }) {
   if (_action === 'deleteExpense') {
     try {
       // create an expense
-      deleteExpenseById({
-        id: values.expenseId,
-      });
-      return toast.success('Expense deleted');
+
+      await toast.promise(
+        deleteExpenseById({
+          id: values.expenseId,
+        }),
+        {
+          pending: 'Deleting Expense',
+          success: 'Expense Delete',
+          error: 'There was a problem deleting your Expense',
+        },
+      );
+      mutate('/expense');
+      return null;
     } catch (error) {
       throw new Error('There was a problem deleting your Expense');
     }
