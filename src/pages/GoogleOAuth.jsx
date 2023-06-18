@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useSubmit } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 
 function GoogleOAuth() {
   const location = useLocation();
@@ -15,7 +16,9 @@ function GoogleOAuth() {
     });
   }, []);
   return (
-    <div>Loading</div>
+    <div className="grid-sm">
+      <Spinner />
+    </div>
   );
 }
 
