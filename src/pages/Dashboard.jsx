@@ -12,7 +12,7 @@ import {
   oauthSignIn,
 } from '../helpers';
 import Intro from '../components/Intro';
-import Grid from '../components/Grid';
+import Grid from '../components/DashbordGrid';
 
 export async function dashboardLoader() {
   const user = fetchData('user');
