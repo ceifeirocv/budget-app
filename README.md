@@ -44,6 +44,7 @@ Expenses
 ## Demo
 
 [Live Demo in Render](https://budget-1twb.onrender.com/)
+[API](https://github.com/ceifeirocv/budget-api)
 
 ## Lessons Learned
 
@@ -51,7 +52,6 @@ I'm currently in the process of learning React Router to enhance my skills in bu
 
 ## Tech Stack
 
-**Client:** 
 -[React](https://react.dev/), 
 -[React Router Documentation](https://reactrouter.com/), 
 
