@@ -9,7 +9,7 @@ export const loginAction = async ({ request }) => {
   const { accessToken } = Object.fromEntries(data);
 
   try {
-    const response = await api.post('/login', {
+    const response = await api.post('/auth', {
       accessToken,
     });
     const { token } = response.data;

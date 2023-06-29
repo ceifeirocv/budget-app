@@ -174,6 +174,7 @@ export const createExpense = async ({ name, amount, budgetId }) => {
         },
       },
     );
+    return null;
   } catch (error) {
     throw new Error(error);
   }
@@ -206,7 +207,7 @@ export const calculateSpentByBudget = (budgetId, expenses) => {
 };
 
 export const fetcher = async (url, method, data) => {
-  const token = fetchData('token');
+  const token = await fetchData('token');
   try {
     const response = await api({
       method,
@@ -216,8 +217,10 @@ export const fetcher = async (url, method, data) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(response.data);
     return response.data;
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 };
